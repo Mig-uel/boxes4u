@@ -167,7 +167,37 @@ By completing this project, I now have a strong foundation for building and depl
 
 ## 📸 Screenshots
 
-_(Screenshots of catalog page, cart page, registration form, and order confirmation coming soon!)_
+### Home Page
+
+![Home Page](./screenshots/home.png)
+
+### Product Catalog
+
+![Product Catalog](./screenshots/catalog.png)
+
+### Product Page
+
+![Product Page](./screenshots/product.png)
+
+### Shopping Cart
+
+![Shopping Cart](./screenshots/cart.png)
+
+### Checkout Page
+
+![Checkout Page](./screenshots/checkout.png)
+
+### Orders Page
+
+![Orders Page](./screenshots/orders.png)
+
+### Order Confirmation
+
+![Order Confirmation](./screenshots/order_confirmation.png)
+
+### User Registration
+
+![User Registration](./screenshots/registration.png)
 
 ---
 
