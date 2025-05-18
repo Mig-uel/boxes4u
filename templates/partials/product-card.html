@@ -1,0 +1,17 @@
+<div class=" bg-white shadow-md rounded-lg overflow-hidden">
+  <a href="/shop/{{ product.id }}">
+    <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-48 object-contain">
+
+    <div class="p-4 mt-8">
+      <h2 class="text-sm font-bold">{{ product.category.name if product.category else "Uncategorized" }}</h2>
+      <h1 class="text-xl font-semibold">{{ product.name }}</h1>
+
+      <p class="text-gray-700">${{ product.price }}</p>
+    </div>
+  </a>
+
+  {% if not plain_card %}
+  <!-- Add to Cart Button -->
+  {% include 'partials/add-to-cart-button.html' %}
+  {% endif %}
+</div>

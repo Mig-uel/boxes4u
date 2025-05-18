@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} | Boxes4U{% endblock %}
+
+{% block header %}
+{% include 'shared/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div>
+  <div class="mt-6">
+    {% include 'shared/back-link.html' %}
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 my-16">
+    <div>
+      <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-auto rounded-md shadow">
+    </div>
+
+    <div class="flex flex-col">
+      <div class="flex flex-col gap-4 mt-2">
+        <h2 class="text-lg font-bold">{{ product.category.name if product.category else "Uncategorized" }}</h2>
+        <h1 class="text-3xl font-bold">{{ product.name }}</h1>
+        <p class="text-xl font-semibold text-green-100 rounded-xl  bg-emerald-500 w-fit px-3 py-1 text-center">
+          ${{ product.price }}</p>
+        <div>
+          <h1 class="text-lg font-bold">Description</h1>
+          {% if product.description %}
+          <p class="text-gray-700">{{ product.description }}</p>
+          {% else %}
+          <p class="text-gray-700">No description available for this product.</p>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <!-- Add to Cart Button -->
+      {% include 'partials/add-to-cart-button.html' %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

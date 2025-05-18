@@ -1,0 +1,62 @@
+{% if session.cart["items"] %}
+<div class="mt-4" id="cart-screen">
+  <h2 class="text-lg font-semibold">Your Cart ({{ session.cart.total_items }})</h2>
+
+  <div class="mt-4">
+    {% for product_id, item in session.cart["items"].items() %}
+    <div class="sm:flex items-center justify-between border-b py-4">
+      <div class="flex items-center">
+        <a href="/shop/{{ product_id }}">
+          <img src=" {{ item.image_url }}" alt="{{ item.name }}" class="w-16 h-16 mr-4"> </a>
+
+        <div>
+          <a href="/shop/{{ product_id }}" class="text-lg font-semibold block">{{ item.name }}</a>
+          <span class="text-gray-600">Qty: {{ item.qty }}</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between sm:w-1/4">
+        <div class="flex items-center gap-4">
+          <button type="button" class="cursor-pointer bg-gray-200 rounded p-2" hx-patch="/cart/update"
+            hx-vals='{"action": "decrease", "product_id": "{{ product_id }}"}' hx-swap="outerHTML"
+            hx-target="#cart-screen">
+            <i class="bi bi-dash"></i>
+          </button>
+          <span class="text-gray-600">{{ item.qty }}</span>
+          <button type="button" class="cursor-pointer bg-gray-200 rounded p-2" hx-patch="/cart/update"
+            hx-vals='{"action": "increase", "product_id": "{{ product_id }}"}' hx-swap="outerHTML"
+            hx-target="#cart-screen">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+
+        <div>
+          <p class="text-gray-600">${{ item.price }} x
+            <span class="text-gray-600">{{  item.qty }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="mt-4 flex justify-between">
+      <h2 class="text-lg font-semibold">Subtotal</h2>
+      <p class="text-gray-600">${{ session.cart.subtotal }}</p>
+    </div>
+  </div>
+
+  <div class="mt-8 flex justify-between">
+    <a href="/shop" class="btn bg-gray-300 text-black">Continue Shopping</a>
+    <a href="/checkout" class="btn">Proceed to Checkout</a>
+  </div>
+</div>
+{% else %}
+<div class="text-center mt-16 space-y-4">
+  <div><i class="bi bi-cart-x-fill text-6xl"></i></div>
+
+  <div>
+    <h1 class="text-2xl font-bold">Your cart is empty</h1>
+    <p class="text-gray-700">Why not add some products to your cart?</p>
+    <a href="/shop" class="btn mt-4 inline-block">Continue Shopping</a>
+  </div>
+</div>
+{% endif %}

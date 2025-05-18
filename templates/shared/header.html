@@ -1,0 +1,73 @@
+<header class="flex justify-between p-4 items-center bg-black text-white ">
+  <h1 class="text-3xl font-bold">
+    <a href="/">Boxes4U</a>
+  </h1>
+
+  <nav>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-6">
+      <a href="{{url_for("home")}}" class="{% if request.path == url_for('home') %}active{% endif %}">Home</a>
+      <a href="{{url_for("shop")}}" class="{% if request.path.startswith(url_for('shop')) %}active{% endif %}">Shop</a>
+      {% if session.user_id %}
+      <a href="{{url_for("cart")}}" class="relative {% if request.path == url_for('cart') %}active{% endif %}">Cart
+        {% include 'partials/cart_count.html' %}
+      </a>
+      <a href="{{url_for("orders")}}" class="{% if request.path == url_for('orders') %}active{% endif %}">Orders</a>
+      {% if session.is_admin %}
+      <a href="{{url_for("admin")}}" class="{% if request.path == url_for('admin') %}active{% endif %}">Admin</a>
+      {% endif %}
+      <a href="{{url_for("logout")}}">Logout</a>
+      {% else %}
+      <a href="{{url_for("login")}}">Login</a>
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden cursor-pointer mr-2 px-2 py-1" id="mobile-menu-btn">
+      <i class=" bi bi-list text-2xl"></i>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="hidden md:hidden fixed h-screen w-screen bg-black text-white text-xl top-0 left-0 flex-col justify-center items-center gap-4"
+      id="mobile-menu">
+      <a href="{{url_for("home")}}" class="{% if request.path == url_for('home') %}active{% endif %}">Home</a>
+      <a href="{{url_for("shop")}}" class="{% if request.path.startswith(url_for('shop')) %}active{% endif %}">Shop</a>
+      {% if session.user_id %}
+      <a href="{{url_for("cart")}}" class="relative {% if request.path == url_for('cart') %}active{% endif %}">Cart
+        {% include 'partials/cart_count.html' %}
+      </a>
+      <a href="{{url_for("orders")}}" class="{% if request.path == url_for('orders') %}active{% endif %}">Orders</a>
+      {% if session.is_admin %}
+      <a href="{{url_for("admin")}}" class="{% if request.path == url_for('admin') %}active{% endif %}">Admin</a>
+      {% endif %}
+      <a href="{{url_for("logout")}}">Logout</a>
+      {% else %}
+      <a href="{{url_for("login")}}">Login</a>
+      {% endif %}
+
+      <div class="cursor-pointer absolute bottom-40" id="close-menu-btn">
+        <i class="bi bi-x-circle-fill text-5xl"></i>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("mobile-menu-btn").addEventListener("click", function () {
+        const menu = document.getElementById("mobile-menu");
+        if (menu.classList.contains("hidden")) {
+          menu.classList.remove("hidden");
+          menu.classList.add("flex");
+        }
+      });
+      document.getElementById("close-menu-btn").addEventListener("click", function () {
+        const menu = document.getElementById("mobile-menu");
+        if (menu.classList.contains("flex")) {
+          menu.classList.remove("flex");
+          menu.classList.add("hidden");
+        }
+      });
+    </script>
+
+  </nav>
+
+</header>

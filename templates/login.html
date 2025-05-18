@@ -1,0 +1,22 @@
+{% extends 'shared/auth.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block heading %}Login{% endblock %}
+
+{% block description %}Please enter your credentials to login.{% endblock %}
+
+{% set action_value = "/login?callback=" ~ request.args.get('callback', '') %}
+
+{% block form_content %}
+<div class="flex flex-col gap-2">
+  <label for="username" class="font-bold">Username</label>
+  <input type="text" id="username" name="username" required class="border border-gray-300 rounded-md p-2">
+</div>
+<div class="flex flex-col gap-2">
+  <label for="password" class="font-bold">Password</label>
+  <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md p-2">
+</div>
+{% endblock %}
+
+{% block button_text %}Login{% endblock %}

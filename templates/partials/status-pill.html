@@ -1,0 +1,7 @@
+{% if order.status == "pending" %}
+<p class="uppercase font-bold text-xs bg-yellow-500 text-yellow-100 p-1.5 rounded-full">{{ order.status }}</p>
+{% elif order.status == "shipped" %}
+<p class="uppercase font-bold text-xs bg-blue-500 text-blue-100 p-1.5 rounded-full">{{ order.status }}</p>
+{% elif order.status == "delivered" %}
+<p class="uppercase font-bold text-xs bg-black text-gray-100 p-1.5 rounded-full">{{ order.status }}</p>
+{% endif %}

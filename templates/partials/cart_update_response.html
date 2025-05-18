@@ -1,0 +1,7 @@
+<!-- Will be swapped into #cart-screen via hx-target -->
+{% include 'partials/cart_table.html' %}
+
+<!-- OOB swap to update #cart-count -->
+<div id="cart-count" hx-swap-oob="true">
+  {% include 'partials/cart_count.html' %}
+</div>

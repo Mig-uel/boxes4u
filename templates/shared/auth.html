@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <main class="h-screen flex items-center justify-center">
+    <div class="bg-[#f7f7f7] shadow-md rounded p-8 mb-4 w-full max-w-lg">
+      <a href="/" class="font-medium text-gray-500 mb-6 hover:text-gray-700 w-fit">
+        <i class="bi bi-arrow-left"></i>
+        <span class="ml-1">Return Home</span>
+      </a>
+
+      <div class="mt-8">
+        <h1 class="text-2xl font-bold">{% block heading %}{% endblock %}</h1>
+        <p class="text-gray-500">
+          {% block description %}{% endblock %}
+        </p>
+      </div>
+
+      <form action="{{ action_value }}" method="POST" class="flex flex-col mt-8 gap-4">
+        {% block form_content %}
+        {% endblock %}
+
+        <button type="submit" class="btn">
+          {% block button_text %}{% endblock %}
+        </button>
+
+        <div>
+          <p class="text-gray-500">
+            {% if action_value.startswith('/login') %}
+            Don't have an account? <a class="hover:text-black font-bold" href="/register">Register</a>
+            {% else %}
+            Already have an account? <a class="hover:text-black font-bold" href="/login">Login</a>
+            {% endif %}
+          </p>
+        </div>
+
+        {% if errors %}
+        {% for e in errors %}
+        <p class="text-red-500 font-bold" role="alert">
+          {{ e }}
+        </p>
+        {% endfor %}
+        {% endif %}
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>

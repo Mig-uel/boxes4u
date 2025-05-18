@@ -1,0 +1,43 @@
+{% extends 'shared/auth.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block heading %}Register{% endblock %}
+
+{% block description %}Please enter your credentials to register.{% endblock %}
+
+{% set action_value = "/register" %}
+
+{% block form_content %}
+<div class="flex gap-2">
+  <div>
+    <label for="first_name" class="font-bold">First Name</label>
+    <input type="text" id="first_name" name="first_name" required class="border border-gray-300 rounded-md p-2">
+  </div>
+
+  <div>
+    <label for="last_name" class="font-bold">Last Name</label>
+    <input type="text" id="last_name" name="last_name" required class="border border-gray-300 rounded-md p-2">
+  </div>
+</div>
+
+<div class="flex flex-col gap-2">
+  <label for="email" class="font-bold">Email</label>
+  <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md p-2">
+</div>
+<div class="flex flex-col gap-2">
+  <label for="username" class="font-bold">Username</label>
+  <input type="text" id="username" name="username" required class="border border-gray-300 rounded-md p-2">
+</div>
+<div class="flex flex-col gap-2">
+  <label for="password" class="font-bold">Password</label>
+  <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md p-2">
+</div>
+<div class="flex flex-col gap-2">
+  <label for="confirm_password" class="font-bold">Confirm Password</label>
+  <input type="password" id="confirm_password" name="confirm_password" required
+    class="border border-gray-300 rounded-md p-2">
+</div>
+{% endblock %}
+
+{% block button_text %}Register{% endblock %}

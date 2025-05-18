@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | Boxes4U{% endblock %}
+
+{% block header %}
+{% include 'shared/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col my-8">
+  <h1 class="text-2xl font-bold">Checkout</h1>
+  <p class="text-gray-700">Please fill in your details to complete the purchase.</p>
+
+
+
+  <div class="grid md:grid-cols-4 gap-4 mt-8">
+    <div class="col-span-2 flex flex-col justify-between p-4 rounded-lg shadow-md">
+      <div class="flex flex-col gap-5">
+        <h2 class="text-xl font-bold">Order Summary</h2>
+
+        <div>
+          <ul class="space-y-4">
+            {% for product_id, item in session["cart"]["items"].items() %}
+            <li class="flex justify-between">
+              <span>{{ item.name }} ({{ item.qty }})</span>
+              <span>${{ item.total_price }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between font-bold mt-4">
+          <span>Taxes</span>
+          <span>$0</span>
+        </div>
+        <div class="flex justify-between font-bold mt-4">
+          <span>Shipping</span>
+          <span>$0</span>
+        </div>
+        <div class="flex justify-between font-bold mt-4">
+          <span>Total</span>
+          <span>${{ session.cart.subtotal }}</span>
+        </div>
+      </div>
+    </div>
+
+    <form action="/checkout" method="POST" class="col-span-2 flex flex-col gap-4 p-4 rounded-lg shadow-md">
+      <div class="flex space-between">
+        <div class="w-full space-y-4">
+          <label for="first_name" class="block text-sm font-medium">First Name</label>
+          <input type="text" id="first_name" name="first_name"
+            class="p-2 mt-1 block w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="John" value="{{ user.first_name }}" required>
+        </div>
+        <div class="space-y-4 w-full">
+          <label for="last_name" class="block text-sm font-medium">Last Name</label>
+          <input type="text" id="last_name" name="last_name"
+            class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="Doe" value="{{ user.last_name }}" required>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <label for="street" class="block text-sm font-medium">Address</label>
+        <input type="text" id="street" name="street"
+          class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          placeholder="123 Main St, Apt 4B" value="{{ user.address.street or '' }}">
+      </div>
+
+      <div class="flex space-between">
+        <div class="space-y-4 w-full">
+          <label for="city" class="block text-sm font-medium">City</label>
+          <input type="text" id="city" name="city"
+            class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="Anytown" value="{{ user.address.city or '' }}">
+        </div>
+        <div class="space-y-4 w-full">
+          <label for="postal_code" class="block text-sm font-medium">Postal Code</label>
+          <input type="text" id="postal_code" name="postal_code"
+            class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="12345" value="{{ user.address.postal_code or '' }}">
+        </div>
+      </div>
+      <div class="space-y-4">
+        <label for="country" class="block text-sm font-medium">Country</label>
+        <input type="text" id="country" name="country"
+          class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          placeholder="USA" value="{{ user.address.country or '' }}">
+      </div>
+
+      {% if errors %}
+      <div class="mt-2">
+        {% for error in errors %}
+        <p class="text-red-500 text-sm font-semibold">{{ error }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="mt-2">
+        <button type="submit" class="btn">Complete Purchase</button>
+      </div>
+    </form>
+
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% if product.stock|int > 0 and session.user_id %}
+<button type="button" class="btn mt-4 w-full" hx-post="/cart/add"
+  hx-vals='{"product_id": "{{ product.id }}", "action": "increase"}' hx-target="#cart-count" hx-swap="outerHTML">
+  <i class="bi bi-plus-lg"></i>
+  <span class="ml-0.5">Add to Cart</span>
+</button>
+{% elif product.stock|int > 0 and not session.user_id %}
+<a class="btn mt-4 text-center block w-full" href="/login?callback={{ request.path }}">
+  <i class="bi bi-person-circle"></i>
+  <span class="ml-0.5">Login to Add to Cart</span>
+</a>
+{% else %}
+<button type="button" class="btn bg-gray-500 text-white hover:bg-gray-600 transition mt-4 w-full cursor-not-allowed"
+  disabled>
+  <i class="bi bi-slash-circle"></i>
+  <span class="ml-0.5">Out of Stock</span>
+</button>
+{% endif %}

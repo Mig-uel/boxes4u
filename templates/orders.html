@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Orders | {{super()}}{% endblock %}
+
+{% block header %}
+{% include "shared/header.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col justify-center my-8">
+  <h1 class="text-2xl font-bold">Orders</h1>
+  <p class="text-gray-700">View your order history and details.</p>
+
+  <div class="mt-4">
+    {% if orders %}
+    <p class="text-gray-700">You have {{ orders|length }} orders.</p>
+
+    <div class="grid grid-cols-1 my-8">
+      {% for order in orders %}
+      <div class="bg-white shadow-md rounded-lg p-4 mb-4 space-y-8">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">Order #{{ order.uuid }}</h2>
+          {% include "partials/status-pill.html" %}
+        </div>
+
+        <div class="space-y-1">
+          <p class="text-gray-700">Date: {{ order.created_at|datetime }}</p>
+          <p class="text-gray-700">Total: ${{ order.total_price }}</p>
+
+          <div>
+            <a href="/orders/{{ order.uuid }}" class="btn mt-2 inline-block">Details</a>
+            <button class="btn mt-2 inline-block"><i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center mt-16 space-y-4">
+      <div><i class="bi bi-emoji-frown-fill text-6xl"></i></div>
+
+      <div>
+        <h1 class="text-2xl font-bold">You haven't placed any orders yet.</h1>
+        <p class="text-gray-700">
+          Don't worry, you can start shopping now!
+        </p>
+        <a href="/shop" class="btn mt-4 inline-block">Start Shopping</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

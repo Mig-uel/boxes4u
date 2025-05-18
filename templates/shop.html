@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop | Boxes4U{% endblock %}
+
+{% block header %}
+{% include 'shared/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col justify-center my-8">
+  <h1 class="text-2xl font-bold">Shop</h1>
+  <p class="text-gray-700">Explore our range of products.</p>
+
+  {% if categories %}
+  <div>
+    <h2 class="text-lg font-semibold mt-4">Categories</h2>
+    <p class="text-gray-700">Browse products by category.</p>
+
+    <div class="mt-4 flex gap-4">
+      <a href="/shop"
+        class="py-2 px-4 rounded {% if not request.args.get('category') %}bg-black text-white font-semibold {% else %}bg-gray-200 hover:bg-gray-300 text-gray-800{% endif %} flex items-center text-center">
+        All
+      </a>
+
+      {% for category in categories %}
+      <a href="/shop?category={{ category.id }}"
+        class="py-2 px-4 rounded {% if category.id == request.args.get('category')|int %}bg-black text-white font-semibold {% else %}bg-gray-200 hover:bg-gray-300 text-gray-800{% endif %} flex items-center text-center">
+        {{ category.name }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+
+  <h2 class="text-lg font-semibold mt-8">
+    {% if isFiltered %}
+    Filtered Products ({{ total_count }})
+    {% else %}
+    All Products ({{ total_count }})
+    {% endif %}
+  </h2>
+
+  {% if products|length == 0 %}
+  <div class="text-center mt-12">
+    <h1 class="text-2xl font-bold">No products available</h1>
+    <p class="text-gray-700">Please check back later.</p>
+  </div>
+  {% endif %}
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-8 mb-16">
+    {% for product in products %}
+    <!-- Product Card -->
+    {% include 'partials/product-card.html' %}
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% include 'shared/pagination.html' %}
+</div>
+
+{% endblock %}

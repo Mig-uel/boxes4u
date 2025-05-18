@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <title>{% block title %}Boxes4U{% endblock %}</title>
+</head>
+
+<body class="min-h-screen flex flex-col relative" hx-boost="true">
+  {% block header %}
+  {% endblock %}
+
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="bg-black text-white py-4 text-center h-40 flex flex-col justify-center">
+    <p>&copy; {{ year }} Boxes4U. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
